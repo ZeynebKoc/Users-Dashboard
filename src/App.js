@@ -1,25 +1,77 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Table from "./components/Table/table.component";
+import UserCard from "./components/UserCard/userCard.component";
+import usersData from "./usersData.json";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    state = {
+        filteredData: usersData,
+        user: {
+            name: "",
+            phone: "",
+            email: "",
+            country: "",
+            age: "",
+            color: "",
+            postalZip: "",
+            latlng: "",
+        },
+    };
+
+    onSearchUser = (event) => {
+        let searchUser = event.target.value;
+        let filteredData = usersData.filter((value) => {
+            let fields = [
+                "name",
+                "phone",
+                "email",
+                "country",
+                "age",
+                "color",
+                "postalZip",
+                "latlng",
+            ];
+            return fields.some(function (field) {
+                return String(value[field])
+                    .toLowerCase()
+                    .includes(searchUser.toLowerCase());
+            });
+        });
+        this.setState({ filteredData });
+    };
+
+    setSelectedUser = (user) => {
+        this.setState({ user });
+    };
+
+    onSortUserUp = (field) => {
+        let sortData = [...this.state.filteredData].sort((a, b) =>
+            a[field] < b[field] ? -1 : 1
+        );
+        this.setState({ filteredData: sortData });
+    };
+
+    onSortUserDown = (field) => {
+        let sortData = [...this.state.filteredData].sort((a, b) =>
+            a[field] > b[field] ? -1 : 1
+        );
+        this.setState({ filteredData: sortData });
+    };
+    render() {
+        return (
+            <div className="app">
+                <UserCard selectedUser={this.state.user} />
+                <Table
+                    onSearchUser={this.onSearchUser}
+                    onSortUserUp={this.onSortUserUp}
+                    onSortUserDown={this.onSortUserDown}
+                    filteredData={this.state.filteredData}
+                    setSelectedUser={this.setSelectedUser}
+                />
+            </div>
+        );
+    }
 }
 
 export default App;

@@ -1,0 +1,50 @@
+.user-cart-bg {
+    display: flex;
+    height: 100vh;
+    background: rgba(187, 187, 187, 0.412);
+    border-radius: 10px;
+    margin: 10px;
+}
+.user-cart-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 8%;
+}
+.icon-person {
+    width: 35%;
+    height: 15%;
+    opacity: 0.6;
+}
+.name,
+.phone,
+.email,
+.country,
+.age,
+.color,
+.postalZip,
+.latIng {
+    display: flex;
+    flex-direction: column;
+}
+label {
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    color: #da475d;
+}
+input[type="email"],
+input[type="text"] {
+    font-weight: 300;
+    font-size: 14px;
+    outline: 0;
+    border: none;
+    outline: none;
+    background: none;
+}
+.line {
+    width: 100%;
+    height: 1px;
+    background: rgba(5, 5, 5, 0.5);
+}
